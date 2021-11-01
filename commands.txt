@@ -1,0 +1,312 @@
+
+            switch (e.Result.Text)
+            {
+                case "shutdown":
+                    sre.RecognizeAsyncStop();
+                    shutdown.SetInputToDefaultAudioDevice();
+                    ss.Speak("do you really need to shutdown");
+                    lblVoice.Text = "/YES to shutdown /NO to abort";
+                    shutdown.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "minimize assistant":
+                    this.WindowState = FormWindowState.Minimized;
+                    break;
+
+                case "open assistant":
+                    this.WindowState = FormWindowState.Normal;
+                    break;
+
+                case "stop talking":
+                    sre.RecognizeAsyncStop();
+                    btnMic.Checked = false;
+                    ss.Speak("Ok, I will stay quitely");
+                    normal.SetInputToDefaultAudioDevice();
+                    normal.RecognizeAsync(RecognizeMode.Multiple);
+                    lblVoice.Text = "I'm quiet";
+                    break;
+
+                case "Exit":
+                    lblVoice.Text = "Good Bye, Have a nice day !";
+                    ss.Speak("Good bye, Have a nice Day");
+                    Application.Exit();
+                    break;
+
+                case "go to edit mode":
+                    sre.RecognizeAsyncStop();
+                    ss.Speak("You can edit me from here.");
+                    btnSettings.PerformClick();
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "close edit mode":
+                    sre.RecognizeAsyncStop();
+                    ss.Speak("closing edit mode.");
+                    Application.OpenForms["Settings"].Close();
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "check my emails":
+                    sre.RecognizeAsyncStop();
+                    lblVoice.Text = "-Opening chrome/email";
+                    ss.Speak("Checking your emails");
+                    Process.Start("chrome", "https://www.gmail.com");
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "lock my computer":
+                    sre.RecognizeAsyncStop();
+                    ss.Speak("locking your computer");
+                    var proc1 = new ProcessStartInfo();
+                    proc1.UseShellExecute = true;
+                    proc1.WorkingDirectory = @"C:\Windows\System32";
+                    proc1.FileName = @"C:\Windows\System32\cmd.exe";
+                    proc1.Arguments = "/c " + "rundll32.exe user32.dll,LockWorkStation";
+                    proc1.WindowStyle = ProcessWindowStyle.Hidden;
+                    Process.Start(proc1);
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open whatsapp":
+                    sre.RecognizeAsyncStop();
+                    lblVoice.Text = "-Opening chrome/whatsapp";
+                    ss.Speak("Openning whatsapp web");
+                    Process.Start("chrome", "https://web.whatsapp.com/");
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "show my weather":
+                    sre.RecognizeAsyncStop();
+                    lblVoice.Text = "-Opening chrome/weather";
+                    ss.Speak("Showing the weather result");
+                    Process.Start("chrome", "https://www.google.com/search?q=weather&oq=weather&aqs=chrome.0.0l7j46.1379j1j7&sourceid=chrome&ie=UTF-8");
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open youtube":
+                    sre.RecognizeAsyncStop();
+                    lblVoice.Text = "-Opening chrome/youtube";
+                    ss.Speak("opening youtube");
+                    Process.Start("chrome", "https://www.youtube.com");
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open notepad":
+                    sre.RecognizeAsyncStop();
+                    lblVoice.Text = "-Opening notepad";
+                    ss.Speak("openning notepad");
+                    Process.Start("notepad");
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open google":
+                    sre.RecognizeAsyncStop();
+                    if (File.Exists(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"))
+                    {
+                        ss.Speak("openning google chrome");
+                        Process.Start("chrome", "https://www.google.com");
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No google chrome installed";
+                        ss.Speak("There is no google chrome installed");
+                    }
+
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open visual studio express":
+                    sre.RecognizeAsyncStop();
+                    if (File.Exists("C:/Program Files (x86)/Microsoft Visual Studio 11.0/Common7/IDE/WDExpress.exe"))
+                    {
+                        ss.Speak("openning visual studio express 2012");
+                        Process.Start("C:/Program Files (x86)/Microsoft Visual Studio 11.0/Common7/IDE/WDExpress.exe");
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No visual studio express installed";
+                        ss.Speak("There is no visual studio express installed");
+                    }
+
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open visual studio community":
+                    sre.RecognizeAsyncStop();
+                    if (File.Exists(@"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"))
+                    {
+                        ss.Speak("openning visual studio community");
+                        Process.Start(@"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe");
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No visual studio community installed";
+                        ss.Speak("There is no visual studio community installed");
+                    }
+
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open file explorer":
+                    sre.RecognizeAsyncStop();
+                    ss.Speak("openning file explorer");
+                    Process.Start("explorer");
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open photoshop":
+                    sre.RecognizeAsyncStop();
+                    if (File.Exists("C:/Program Files/Adobe/Adobe Premiere Pro CC 2017/Adobe Premiere Pro.exe"))
+                    {
+                        ss.Speak("openning adobe photoshop");
+                        Process.Start("C:/Program Files/Adobe/Adobe Photoshop CS6 (64 Bit)/Photoshop.exe");
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No adobe photoshop installed";
+                        ss.Speak("There is no adobe photoshop installed");
+                    }
+
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "open premier":
+                    sre.RecognizeAsyncStop();
+                    if (File.Exists("C:/Program Files/Adobe/Adobe Premiere Pro CC 2017/Adobe Premiere Pro.exe"))
+                    {
+                        ss.Speak("openning adobe premier pro");
+                        Process.Start("C:/Program Files/Adobe/Adobe Premiere Pro CC 2017/Adobe Premiere Pro.exe");
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No adobe premier pro installed";
+                        ss.Speak("There is no adobe premier pro installed");
+                    }
+
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "close notepad":
+
+                    sre.RecognizeAsyncStop();
+                    Process[] p1 = Process.GetProcessesByName("notepad");
+                    if (p1.Length >= 1)
+                    {
+                        ss.Speak("closing notepad");
+                        Process.GetProcessesByName("notepad")[0].Kill();
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No notepad to close";
+                        ss.Speak("There is no notepad open");
+                    }
+
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "close google":
+
+                    sre.RecognizeAsyncStop();
+                    Process[] p2 = Process.GetProcessesByName("chrome");
+                    if (p2.Length >= 1)
+                    {
+                        ss.Speak("closing google");
+                        Process.GetProcessesByName("chrome")[0].Kill();
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No google chrome to close";
+                        ss.Speak("There is no google chrome open");
+                    }
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "close visual studio express":
+
+                    sre.RecognizeAsyncStop();
+                    Process[] p3 = Process.GetProcessesByName("WDExpress");
+                    if (p3.Length >= 1)
+                    {
+                        ss.Speak("closing visual studio express");
+                        Process.GetProcessesByName("WDExpress")[0].Kill();
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No visual studio express to close";
+                        ss.Speak("There is no visual studio express open");
+                    }
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "close visual studio community":
+
+                    sre.RecognizeAsyncStop();
+                    Process[] P3 = Process.GetProcessesByName("devenv");
+                    if (P3.Length >= 1)
+                    {
+                        ss.Speak("closing visual studio community");
+                        Process.GetProcessesByName("devenv")[0].Kill();
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No visual studio community to close";
+                        ss.Speak("There is no visual studio community open");
+                    }
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "close file explorer":
+
+                    sre.RecognizeAsyncStop();
+                    Process[] p4 = Process.GetProcessesByName("explorer");
+                    if (p4.Length >= 1)
+                    {
+                        ss.Speak("closing file explorer");
+                        Process.GetProcessesByName("explorer")[0].Kill();
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No file explorer to close";
+                        ss.Speak("There is no file explorer open");
+                    }
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+                
+                case "close photoshop":
+
+                    sre.RecognizeAsyncStop();
+                    Process[] p5 = Process.GetProcessesByName("Photoshop");
+                    if (p5.Length >= 1)
+{
+                        ss.Speak("closing adobe photoshop");
+                        Process.GetProcessesByName("Photoshop")[0].Kill();
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No adobe photoshop to close";
+                        ss.Speak("There is no adobe photoshop open");
+                    }
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+
+                case "close premier":
+
+                    sre.RecognizeAsyncStop();
+                    Process[] p6 = Process.GetProcessesByName("Adobe Premiere Pro");
+                    if (p6.Length >= 1)
+                    {
+                        ss.Speak("closing adobe premier pro");
+                        Process.GetProcessesByName("Adobe Premiere Pro")[0].Kill();
+                    }
+                    else
+                    {
+                        lblVoice.Text = "! No adobe premier pro to close";
+                        ss.Speak("There is no adobe premier pro open");
+                    }
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                    break;
+            }
+
+//----------------------------------------------------------------------------------------------
+
+ "open whatsapp", "lock my computer", "close edit mode", "go to edit mode", "open youtube", "show my weather", "check my emails", "shutdown", "restart", "Exit", "open notepad", "open google", "open visual studio express", "open visual studio community", "open file explorer", "open photoshop", "open premier", "close notepad", "close google", "close visual studio express", "close visual studio community", "close file explorer", "close photoshop", "close premier", "stop talking", "minimize assistant", "open assistant"
